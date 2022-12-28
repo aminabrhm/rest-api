@@ -22,14 +22,6 @@ app.use(
 app.use(express.static(path.join(__dirname, "public")));
 app.use(passportJWT.initialize());
 
-app.use(function (req, res, next) {
-	console.log(req.method, req.originalUrl);
-	let body = req.body;
-	console.log({ body });
-	console.log(req["headers"]);
-	next();
-});
-
 app.use("/api/auth", authRoutes);
 app.use("/api/post", passportJWT.authenticate(), postRoutes);
 
