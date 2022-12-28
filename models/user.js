@@ -16,8 +16,8 @@ UserSchema.methods.encryptPassword = async (password) => {
 };
 
 UserSchema.methods.validPassword = async function (condidatePassword) {
-	// const result = await bcrypt.compare(condidatePassword, this.password);
-	const result = condidatePassword == this.password ? true : false;
+	const result = await bcrypt.compare(condidatePassword, this.password);
+	// const result = condidatePassword == this.password ? true : false;
 	return result;
 };
 
