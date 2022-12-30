@@ -1,0 +1,255 @@
+{
+	"info": {
+		"_postman_id": "f6e4c2d1-5b5f-4050-81be-4382d2f292b9",
+		"name": "Auth MEAN",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13286168"
+	},
+	"item": [
+		{
+			"name": "Posts",
+			"item": [
+				{
+					"name": "get posts",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjYzOWY0YjYxZWMyZDJhMWEwZGQ2NzcyNCJ9.7AZIjkDeVDgiMhvKIJwTtlztM2r58IU-x9tqftFJoNw",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/post",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"post"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete post",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjYzOWY0YjYxZWMyZDJhMWEwZGQ2NzcyNCJ9.7AZIjkDeVDgiMhvKIJwTtlztM2r58IU-x9tqftFJoNw",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/post/63adf59d0c05ecfb38ddcb9e",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"post",
+								"63adf59d0c05ecfb38ddcb9e"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "store post",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjYzOWY1MjMxYzE5OThmNjRlMTc3YTQ1ZSJ9.lK2ssyOf0TC5BwhbQFnWQ0Hspwh-gFf5GN2-tNz1Xew",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "description",
+									"value": "Test nony",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/Users/salhIbrahim/Desktop/Screen Shot 2022-10-25 at 22.35.53.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/post",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"post"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ME",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/post",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"post"
+					],
+					"query": [
+						{
+							"key": "question1",
+							"value": "Why earth",
+							"disabled": true
+						},
+						{
+							"key": "question2",
+							"value": null,
+							"disabled": true
+						},
+						{
+							"key": "question3",
+							"value": null,
+							"disabled": true
+						},
+						{
+							"key": "question4",
+							"value": null,
+							"disabled": true
+						},
+						{
+							"key": "name",
+							"value": "Amnah Ibrahim",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Signup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Amnah\",\n    \"email\": \"amon@gmail.com\",\n    \"password\": \"141414\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/auth/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"auth",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"amonh17@gmail.com\",\n    \"password\": \"141414\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Follow",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjYzOWY0YjYxZWMyZDJhMWEwZGQ2NzcyNCJ9.7AZIjkDeVDgiMhvKIJwTtlztM2r58IU-x9tqftFJoNw",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8000/api/follow/63ae057672dec9e0d40a5ad9",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"follow",
+						"63ae057672dec9e0d40a5ad9"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

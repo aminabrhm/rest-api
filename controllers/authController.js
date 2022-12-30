@@ -52,7 +52,6 @@ exports.signup = async (req, res, next) => {
 		next(error);
 	}
 };
-
 exports.me = async (req, res, next) => {
 	try {
 		console.log(req.user);

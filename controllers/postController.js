@@ -3,6 +3,7 @@ const Post = require("../models/post");
 
 exports.test = async (req, res, next) => {
 	try {
+		const test = "test";
 		res.send({
 			id: "sambosa",
 			data: {
@@ -16,7 +17,14 @@ exports.test = async (req, res, next) => {
 
 exports.index = async (req, res, next) => {
 	try {
-		const posts = await Post.find();
+		const pagination = 10; 
+		const page = (req?.query?.page ? parseInt(req.query.page) : 10);
+		const posts = await Post.find({
+			user: { $in: [...req.user.following, req.user.id] }
+		})
+			.skip((page - 1) * pagination)
+			.limit(pagination)
+			.populate("user").sort({ createdAt: -1 });
 		res.send(posts);
 	} catch (error) {
 		next(error);
@@ -27,7 +35,8 @@ exports.show = async (req, res, next) => {
 	try {
 		const post = await Post.findOne({
 			_id: req.params.id,
-		});
+			user: { $in: [...req.user.following, req.user.id] }
+		}).populate("user");
 		res.send(post);
 	} catch (error) {
 		next(error);
@@ -40,7 +49,7 @@ exports.store = async (req, res, next) => {
 		let post = new Post();
 		post.image = req.file.filename;
 		post.description = req.body.description;
-
+		post.user = req.user;
 		post = await post.save();
 		res.send(post);
 	} catch (err) {
@@ -52,8 +61,12 @@ exports.update = async (req, res, next) => {
 	try {
 		validationHandler(req);
 		let post = await Post.findById(req.params.id);
+		if (!post || post.user != req.user.id) {
+			const error = new Error("Wrong request")
+			error.statusCode = 400;
+			throw error
+		}
 		post.description = req.body.description;
-
 		post = await post.save();
 		res.send(post);
 	} catch (err) {
@@ -64,6 +77,11 @@ exports.update = async (req, res, next) => {
 exports.delete = async (req, res, next) => {
 	try {
 		let post = await Post.findById(req.params.id);
+		if (!post || post.user != req.user.id) {
+			const error = new Error("Wrong request")
+			error.statusCode = 400;
+			throw error
+		}
 		post = await post.delete();
 		res.send({ messege: "Success" });
 	} catch (err) {
