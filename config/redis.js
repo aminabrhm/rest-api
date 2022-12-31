@@ -6,7 +6,7 @@ const config = require("../config/index");
 let client;
 module.exports = {
     getClient: async () => {
-        if(!client){
+        if (!client) {
             redisConfig = {
                 host: config.redisHOST,
                 port: config.redisPORT
@@ -15,8 +15,7 @@ module.exports = {
                 redisConfig.password = config.redisPassword;
             };
             client = redis.createClient(redisConfig);
-            client.get = util.promisify(client.hGet);
-            // await client.connect()
+            client.hGet = util.promisify(client.hGet);
         }
         return client;
     }
