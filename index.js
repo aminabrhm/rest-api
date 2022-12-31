@@ -8,9 +8,19 @@ const postRoutes = require("./routes/post");
 const authRoutes = require("./routes/auth");
 const followRoutes = require("./routes/following");
 const mongoose = require("mongoose");
+const rateLimit = require("express-rate-limit");
 
 const app = express();
 app.use(cors());
+const limiter = rateLimit({
+	windowMs: 10 * 1000, 
+	max: 5, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
+	standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+	legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+})
+
+app.use(limiter)
+
 mongoose.Promise = global.Promise;
 mongoose.connect("mongodb://localhost/rest-api-node", { useNewUrlParser: true }).then(() => console.log("Connected!"));
 

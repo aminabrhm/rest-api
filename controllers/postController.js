@@ -17,8 +17,8 @@ exports.test = async (req, res, next) => {
 
 exports.index = async (req, res, next) => {
 	try {
-		const pagination = 10; 
-		const page = (req?.query?.page ? parseInt(req.query.page) : 10);
+		const pagination = (req?.query?.pagination ? parseInt(req.query.pagination) : 10);; 
+		const page = (req?.query?.page ? parseInt(req.query.page) : 1);
 		const posts = await Post.find({
 			user: { $in: [...req.user.following, req.user.id] }
 		})
