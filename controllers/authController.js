@@ -54,6 +54,7 @@ exports.me = async (req, res, next) => {
 	try {
 		const client = redis.createClient(redisConfig);
 		await client.connect();
+
 		const cacheValue = await client.hGet("users", req.user.id);
 		if (cacheValue) {
 			console.log("returned from redis");
