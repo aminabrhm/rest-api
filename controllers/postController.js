@@ -17,15 +17,20 @@ exports.test = async (req, res, next) => {
 
 exports.index = async (req, res, next) => {
 	try {
-		const pagination = (req?.query?.pagination ? parseInt(req.query.pagination) : 10);; 
+		const pagination = (req?.query?.pageSize ? parseInt(req.query.pageSize) : 10);; 
 		const page = (req?.query?.page ? parseInt(req.query.page) : 1);
-		const posts = await Post.find({
+		const posts = req?.user ? await Post.find({
 			user: { $in: [...req.user.following, req.user.id] }
-		})
+		}).skip((page - 1) * pagination)
+		.limit(pagination)
+		.populate("user").sort({ createdAt: -1 }) : await Post.find()
 			.skip((page - 1) * pagination)
 			.limit(pagination)
 			.populate("user").sort({ createdAt: -1 });
-		res.send(posts);
+
+		const rowCount = await Post.countDocuments();
+
+		res.send({posts, rowCount});
 	} catch (error) {
 		next(error);
 	}
